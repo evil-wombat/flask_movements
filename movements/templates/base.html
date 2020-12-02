@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Movimientos - {% block title%}{% endblock %}</title>
+        <style>
+            * {
+                font-family: 'Courier New', Courier, monospace;
+            }    
+
+            header {
+                color: white;
+                background-color: red;
+                font-family: sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+                <p>Boot Z 6 - Cashflow</p>
+        </header>
+        
+        <section>
+            {% block content%} {% endblock %}
+        </section>
+
+        <footer>
+            &copy; 2020 - 2021. Todos los derechos reservados
+        </footer>
+         
+    </body>
+</html>
