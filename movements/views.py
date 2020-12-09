@@ -1,5 +1,5 @@
 from movements import app
-from flask import render_template
+from flask import render_template, request, url_for, redirect
 import csv
 
 @app.route('/')
@@ -15,6 +15,13 @@ def lista_ingresos ():
 
    return render_template ('movement_list.html', datos=ingresos, total = suma)
 
-@app.route('/creaalta')
-def algo ():
-  return 'Aquí ira algo'
+@app.route('/creaalta', methods= ['GET', 'POST'])
+def nuevoIngreso ():
+   if request.method == 'POST':
+      fIngresos = open ('movements/data/database.csv', 'a', newline='')
+      csWriter = csv.writer(fIngresos, delimiter=',', quotechar='"')
+      csWriter.writerow([request.form.get('fecha'), request.form.get('concepto'), request.form.get('cantidad')])
+      return redirect(url_for('lista_ingresos'))
+
+   
+   return render_template ('alta.html')
