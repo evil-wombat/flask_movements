@@ -4,21 +4,26 @@
                 
 {% block content %}
     <h1>Ingresos mensuales <a href="creaalta">Nuevo</a></h1>
-    <table>
-        <tr>
-            <th>Fecha</th>
-            <th>Concepto</th>
-            <th>Importe</th>
-        </tr>
-    {% for registro in datos %}
-        <tr>
-            <td><a href='modifica/{{ registro[3] }}'>{{ registro[0] }}</a></td>
-            <td>{{ registro[1] }}</td>
-            <td>{{ registro[2] }}€</td>
-        </tr>
-    {% endfor %}
-        <tr>
-            <td colspan='3'>Total: {{ total }}€</td>
-        </tr>
-    </table>
-{% endblock %}       
+    {% if datos|length > 0 %}
+ 
+        <table>
+            <tr>
+                <th>Fecha</th>
+                <th>Concepto</th>
+                <th>Importe</th>
+            </tr>
+        {% for registro in datos %}
+            <tr>
+                <td><a href="modifica/{{ registro ['ID'] }}">{{ registro['fecha'] }}</a></td>
+                <td>{{ registro['concepto'] }}</td>
+                <td>{{ registro['cantidad'] }}€</td>
+            </tr>
+        {% endfor %}
+            <tr>
+                <td colspan='3'>Total: {{ total }}€</td>
+            </tr>
+        </table>
+    {% else %}
+        <p>No hay movimientos</p>
+    {% endif %}
+    {% endblock %}       

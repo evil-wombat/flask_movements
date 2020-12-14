@@ -1,27 +1,27 @@
 {% extends 'base.html' %}
 
-{% block title %} Alta {% endblock%}
+{% block title %} Modifica {% endblock%}
                 
 {% block content %}
-    <form action = 'creaalta' method = 'post'>
+    <form action= "modifica/{{ registro ['ID'] }}" method="post">
         <div class='field'>
             <label for='fecha'>Fecha:</label>
-            <input type='date' name='fecha'>
+            <input type='date' name='fecha', required value="{{ registro ['fecha'] }}">
         </div>
 
         <div class='field'>
             <label for='concepto'>Concepto</label>
-            <input type='text' name='concepto'>
+            <input type='text' name='concepto', required value="{{ registro ['concepto'] }}">
         </div>
         
        <div class='field'>
             <label for='cantidad'>Cantidad:</label>
-            <input type='number' name='cantidad' step="0.01">
+            <input type='number' name='cantidad' step="0.01", required value="{{ registro ['cantidad'] }}">
        </div>
        <div class='field'>
            <input type='submit' value='Aceptar'>
        </div>
-       
+          
     </form>  
 
 {% endblock %}
