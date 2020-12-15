@@ -2,8 +2,11 @@ from movements import app
 from flask import render_template, request, url_for, redirect
 import csv
 import sqlite3
+from movements.forms import MovementForm
+from datetime import date
 
 
+# DBfile = app.config['DBfile']
 DBfile = 'movements/data/database.db'
 
 def consulta (query, params=()):
@@ -46,10 +49,13 @@ def lista_ingresos ():
       print (ingreso)
       suma += float(ingreso['cantidad'])
    
-   return render_template ('movement_list.html', datos=ingresos, total = suma)
+   return render_template ('movement_list.html', datos=ingresos, total = suma,)
 
 @app.route('/creaalta', methods= ['GET', 'POST'])
 def nuevoIngreso ():
+
+   form = MovementForm (request.form)
+
    if request.method == 'POST':
 
       cantidad = request.form.get('cantidad')
@@ -59,41 +65,51 @@ def nuevoIngreso ():
          msgError = 'Cantidad debe ser numérica'
          return render_template('alta.html', errores = msgError)
 
-      consulta ('INSERT INTO movements (cantidad, concepto, fecha) VALUES (?, ?, ?);', 
-               (
-                  float(request.form.get('cantidad')),
-                  request.form.get('concepto'),
-                  request.form.get('fecha')
+      if form.validate  ():
+
+         consulta ('INSERT INTO movements (cantidad, concepto, fecha) VALUES (?, ?, ?);', 
+                  (
+                     form.cantidad.data,
+                     form.concepto.data,
+                     form.fecha.data 
+                  )
                )
-            )
       
-      return redirect(url_for('lista_ingresos'))
+         return redirect(url_for('lista_ingresos'))
+
+      else:
+         return render_template ('alta.html', form=form)
    
-   return render_template ('alta.html')
+   return render_template ('alta.html', form=form)
 
 @app.route("/modifica/<id>", methods = ['GET', 'POST'])
 def modifica_ingreso(id):
 
+
    if request.method == 'GET':
 
-      
       registro = consulta ('SELECT fecha, concepto, cantidad, id FROM movements WHERE id = ?', (id,)) [0]
+      registro['fecha'] = date.fromisoformat(registro['fecha'])
 
-      return render_template ('modifica.html', registro = registro)
+      form = MovementForm(data=registro)
+
+      return render_template ('modifica.html', form = form, id=id)
 
    if request.method == 'POST':
+      form = MovementForm ()
+      if form.validate():
+         consulta ('UPDATE movements SET fecha = ?, concepto = ?, cantidad = ? WHERE id= ?', 
+                  (
+                     request.form.get('fecha'),
+                     request.form.get('concepto'),
+                     float(request.form.get('cantidad')),
+                     id
+                  )
+         )        
 
-      consulta ('UPDATE movements SET fecha = ?, concepto = ?, cantidad = ? WHERE id= ?', 
-               (
-                  request.form.get('fecha'),
-                  request.form.get('concepto'),
-                  float(request.form.get('cantidad')),
-                  id
-               )
-      )
-               
-
-      return redirect(url_for('lista_ingresos'))
+         return redirect(url_for('lista_ingresos'))
+      else:
+         return render_template('modifica.html', form=form, id=id)
 
    
 

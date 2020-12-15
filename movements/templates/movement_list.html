@@ -3,9 +3,8 @@
 {% block title %} Romanos {% endblock%}
                 
 {% block content %}
-    <h1>Ingresos mensuales <a href="creaalta">Nuevo</a></h1>
+    <h1>Ingresos mensuales</h1>
     {% if datos|length > 0 %}
- 
         <table>
             <tr>
                 <th>Fecha</th>
@@ -26,4 +25,5 @@
     {% else %}
         <p>No hay movimientos</p>
     {% endif %}
+    <h2><a href="creaalta">Nuevo</a></h2>
     {% endblock %}       

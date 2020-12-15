@@ -4,13 +4,14 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title> KAKEBO - {% block title%}{% endblock %}</title>
+        <link rel="stylesheet" href="/static/css/styles.css"></link>
     </head>
     <body>
         <header>
                 <p>Boot Z 6 - Kakebo</p>
         </header>
         
-        <section>
+        <section class = "container">
             {% block content%} {% endblock %}
         </section>
 
@@ -20,3 +21,4 @@
          
     </body>
 </html>
+

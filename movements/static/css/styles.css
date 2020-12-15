@@ -1,0 +1,19 @@
+* {
+    background-color: #74D5DD;
+    font-family: monospace;
+    text-align: center;
+}
+
+table {
+    background-color: black;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+h2 {margin-right: 50%;}
+
+.field {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: darkcyan;}

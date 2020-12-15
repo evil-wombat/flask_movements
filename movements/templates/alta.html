@@ -4,22 +4,38 @@
                 
 {% block content %}
     <form action = 'creaalta' method = 'post'>
+        {{ form.hidden_tag() }}
         <div class='field'>
-            <label for='fecha'>Fecha:</label>
-            <input type='date' name='fecha'>
+            {{ form.fecha.label }}
+            {{ form.fecha(type ='date')}}
+            {% for error in form.fecha.errors %}
+                <p class = "err-msg"> 
+                    {{ error }}
+                </p>
+            {% endfor %}
         </div>
 
         <div class='field'>
-            <label for='concepto'>Concepto</label>
-            <input type='text' name='concepto'>
+            {{ form.concepto.label}}
+            {{ form.concepto(placeholder = 'En que te lo has gastado') }}
+            {% for error in form.concepto.errors %}
+                <p class = "err-msg"> 
+                    {{ error }}
+                </p>
+            {% endfor %}
         </div>
         
        <div class='field'>
-            <label for='cantidad'>Cantidad:</label>
-            <input type='number' name='cantidad' step="0.01">
+           {{ form.cantidad.label}}
+           {{ form.cantidad(placeholder = 'Escribe un numero') }}
+           {% for error in form.cantidad.errors %}
+                <p class = "err-msg"> 
+                    {{ error }}
+                </p>
+            {% endfor %}
        </div>
        <div class='field'>
-           <input type='submit' value='Aceptar'>
+           {{ form.submit }}
        </div>
        
     </form>  

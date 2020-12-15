@@ -3,23 +3,24 @@
 {% block title %} Modifica {% endblock%}
                 
 {% block content %}
-    <form action= "modifica/{{ registro ['ID'] }}" method="post">
+    <form action= "/modifica/{{id}}" method="post">
+        {{ form.hidden_tag() }}
         <div class='field'>
-            <label for='fecha'>Fecha:</label>
-            <input type='date' name='fecha', required value="{{ registro ['fecha'] }}">
+            {{ form.fecha.label }}
+            {{ form.fecha (type='date') }}
         </div>
 
         <div class='field'>
-            <label for='concepto'>Concepto</label>
-            <input type='text' name='concepto', required value="{{ registro ['concepto'] }}">
+            {{ form.concepto.label }}
+            {{ form.concepto }}
         </div>
         
        <div class='field'>
-            <label for='cantidad'>Cantidad:</label>
-            <input type='number' name='cantidad' step="0.01", required value="{{ registro ['cantidad'] }}">
+           {{ form.cantidad.label }}
+           {{ form.cantidad }} 
        </div>
        <div class='field'>
-           <input type='submit' value='Aceptar'>
+           {{ form.submit}}
        </div>
           
     </form>  
