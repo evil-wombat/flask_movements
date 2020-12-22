@@ -1,0 +1,6 @@
+CREATE TABLE "movements" (
+	"ID"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"concepto"	TEXT NOT NULL,
+	"fecha"	TEXT NOT NULL,
+	"cantidad"	REAL NOT NULL
+);
